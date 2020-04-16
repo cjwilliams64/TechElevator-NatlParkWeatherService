@@ -1,0 +1,92 @@
+﻿@model DetailViewModel
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<section>
+    <div class="detail-view">
+        <div class="park-image" id="park-image">
+            <p class="detailParkName">@Model.Park.ParkName -    @Model.Park.State - @Model.Park.Climate Climate - Founded in @Model.Park.YearFounded </p>
+            <img src="/images/parks/@(Model.Park.ParkCode).jpg" />
+            @*<p class="detailParkName">@Model.Park.ParkName -    @Model.Park.State - @Model.Park.Climate Climate - Year Founded:  @Model.Park.YearFounded </p>*@
+
+            <p class="quote"><i>"@Model.Park.Quote"</i> </p> 
+<p class="q-source">- @Model.Park.QuoteSource</p>
+            
+        </div>
+
+        <div class="park-entire">
+            <div class="park-description">
+                @*<p class="detailParkName">@Model.Park.ParkName -    @Model.Park.State - Climate: @Model.Park.Climate - Year Founded:  @Model.Park.YearFounded </p>*@
+
+                <p>
+                    @Model.Park.Description
+                </p>
+            </div>
+
+            <div class="park-infoA">
+                <p><strong>Total Acreage: </strong>@(Model.Park.Acreage.ToString("N0")) acres</p>
+                <p><strong>Total Elevation: </strong>@(Model.Park.ElevationInFeet.ToString("N0")) feet</p>
+                <p><strong>Total Trail Length: </strong>@Model.Park.MilesOfTrail miles</p>
+           
+        
+                <p><strong>Annual Visitor Count: </strong>@(Model.Park.AnnualVisitorCount.ToString("N0"))</p>
+                <p><strong>Park Entry Fee: </strong>$@Model.Park.EntryFee</p>
+                <p><strong>Number of Animal Species: </strong>@Model.Park.AnimalSpecies</p>
+            </div>
+
+            @*<div class="park-quote">
+                <p><i>"@Model.Park.Quote"</i>  - @Model.Park.QuoteSource</p>
+            </div>*@
+            <p><strong> Number of Available Campsites: </strong> @Model.Park.Campsites </p>
+
+
+            <h3>Weather Report</h3>
+
+            <div class="weather">
+                <div class="today" id="weather">
+                    <p id="todayB"><strong>Today</strong></p>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <div>
+                            <p id="weatherPic">
+                                @if (Model.FiveDayForecast[i].Forecast == "partly cloudy")
+                                {
+                                    <img src="~/images/weather/partlyCloudy.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/weather/@(Model.FiveDayForecast[i].Forecast).png" />
+                                }
+                            </p>
+                            <p id="advisory">
+                            <p>
+                                <strong>High</strong>
+                                @(Model.isFahrenheit ? $"{(Model.FiveDayForecast[i].High):N1}" : ($"{(((Model.FiveDayForecast[i].High) - 32) * (0.56M)):N1}"))
+                                @(Model.isFahrenheit ? "F" : "C")
+                            </p>
+                            <p>
+                                <strong>Low</strong> @(Model.isFahrenheit ? $"{(Model.FiveDayForecast[i].Low):N1}" : ($"{(((Model.FiveDayForecast[i].Low) - 32) * (0.56M)):N1}")) @(Model.isFahrenheit ? "F" : "C")
+                            </p>
+                            <p class="Recommention">@Model.FiveDayForecast[i].TempMessage!</p>
+                            </p>
+                        </div>
+                    }
+                </div>
+                <div class="detail-buttons">
+                    <form method="post" asp-controller="Home" asp-action="Detail" asp-route-parkCode="@Model.Park.ParkCode" asp-route-temp="f">
+                        <input type="submit" value="Fahrenheit" />
+                    </form>
+                    <form method="post" asp-controller="Home" asp-action="Detail" asp-route-parkCode="@Model.Park.ParkCode" asp-route-temp="c">
+                        <input type="submit" value="Celcius" />
+                    </form>
+
+
+                </div>
+            </div>
+
+</section>
+
+
+
+

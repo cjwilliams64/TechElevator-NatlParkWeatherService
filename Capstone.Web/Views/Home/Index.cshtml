@@ -1,0 +1,26 @@
+﻿@model IList<Park>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="centeredPanel">
+    
+
+        @foreach (Park park in Model)
+        {
+            <div class="park">
+
+                <a asp-controller="Home" asp-action="Detail" asp-route-parkCode="@park.ParkCode">   <img src="/images/parks/@(park.ParkCode).jpg" alt="@park.ParkName" /></a>
+
+                <div class="park-details">
+                    <a asp-controller="Home" asp-action="Detail" asp-route-parkCode="@park.ParkCode">
+                        <h2 id="black">@park.ParkName</h2>
+                    </a>
+                    <h3>@park.State</h3>
+                    <p>@park.Description</p>
+                </div>
+
+            </div>
+        }
+    
+</section>

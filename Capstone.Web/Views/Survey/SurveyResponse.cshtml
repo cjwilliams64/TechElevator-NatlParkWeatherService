@@ -1,0 +1,39 @@
+﻿@model IList<SurveyResponse>
+@{
+    ViewData["Title"] = "SurveyResponse";
+}
+
+<div class="surveyResponse"
+<h4>Thanks for completing our survey!</h4>
+
+<h2>Park Ranking</h2>
+
+<p>Check out our top-ranked national parks! To find out more about a park, click on its name or picture. </p>
+    </div>
+
+<div class="top-ranked-parks">
+    @{
+
+        foreach (SurveyResponse sr in Model)
+        {
+        <div class="parksSurvey">
+            <div class="park-info">
+                <div class="park-name">
+                    <p>
+                        @sr.ParkName -
+
+                        <strong>Number of Votes: @sr.VotesForPark</strong>
+                    </p>
+                </div>
+
+            </div>
+            <div class="park-pic">
+                <a asp-controller="Home" asp-action="Detail" asp-route-parkCode="@sr.ParkCode"><img src="~/images/parks/@(sr.ParkCode).jpg" class="park-image" /></a>
+            </div>
+    
+            
+        </div>
+        }
+    }
+</div>
+

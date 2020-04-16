@@ -1,0 +1,59 @@
+﻿@model Survey
+@{
+    ViewData["Title"] = "NewSurvey";
+    
+}
+<div class="feedback">
+<h4>Please vote for your favorite park in the survey below.</h4>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Survey" asp-action="NewSurvey" method="post">
+
+            <p>
+                <label asp-for="park.ParkName">Favorite Park</label>
+                <select asp-for="ParkCode" asp-items="Model.Parks">
+                <option value="">*** Please select a park ***</option>
+                </select>
+                <span asp-validation-for="ParkCode"></span>
+            </p>
+            <p>
+                <label asp-for="Email">Enter your email address</label>
+                <input type="text" id="Email" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </p>
+            <p>
+                <label asp-for="State">Which state do you live in?</label> 
+                <select asp-for="State" asp-items="Model.States">
+                        <option value="">*** Please select a state ***</option>
+                    </select>
+                <span asp-validation-for="State"></span>
+
+            </p>
+            
+            <div class="activityLevel">
+                    <label asp-for="@Model.ActivityLevel">Which of the following best describes your activity level?</label>
+                    <div class="radio-button">
+                        <input asp-for="ActivityLevel" type="radio" value="inactive" /> inactive
+                    </div>
+                    <div class="radio-button">
+                        <input asp-for="ActivityLevel" type="radio" value="sedentary" /> sedentary
+                    </div>
+                    <div class="radio-button">
+                        <input asp-for="ActivityLevel" type="radio" value="active" /> active
+                    </div>
+                    <div class="radio-button">
+                        <input asp-for="ActivityLevel" type="radio" value="extremely active" /> extremely active
+                    </div>
+                    <span asp-validation-for="ActivityLevel"></span>
+         </div>
+
+            <div>
+                <input type="submit" value="Submit Survey!" class="btn btn-default" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
